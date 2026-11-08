@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "deepfish",
+  "version": "1.0.0",
+  "name": "DeepFish",
+  "description": "Renders the DeepSeek whale-girl model for the player named deepdeep.",
+  "authors": ["fish"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.deepfish.DeepfishClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  }
+}
