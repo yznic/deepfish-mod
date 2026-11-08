@@ -81,33 +81,6 @@ public class DeepfishClient implements ClientModInitializer {
             if (consumers instanceof VertexConsumerProvider.Immediate imm) {
                 imm.draw();
             }
-            debugCube(ctx, pos, cam);
         }
-    }
-
-    private static void debugCube(WorldRenderContext ctx, Vec3d pos, Vec3d cam) {
-        MatrixStack ms = ctx.matrixStack();
-        ms.push();
-        ms.translate(pos.x - cam.x, pos.y - cam.y, pos.z - cam.z);
-        VertexConsumerProvider consumers = ctx.consumers();
-        VertexConsumer d = consumers.getBuffer(RenderLayer.getDebugQuads());
-        Matrix4f m = ms.peek().getPositionMatrix();
-        Vector3f[] p = {
-                new Vector3f(-2, 0, -2), new Vector3f(2, 0, -2), new Vector3f(2, 4, -2), new Vector3f(-2, 4, -2),
-                new Vector3f(-2, 0, 2), new Vector3f(2, 0, 2), new Vector3f(2, 4, 2), new Vector3f(-2, 4, 2)
-        };
-        for (Vector3f v : p) {
-            m.transformPosition(v);
-        }
-        int[][] faces = {{0, 1, 2, 3}, {5, 4, 7, 6}, {4, 0, 3, 7}, {1, 5, 6, 2}, {3, 2, 6, 7}, {4, 5, 1, 0}};
-        for (int[] f : faces) {
-            for (int i : f) {
-                d.vertex(p[i].x, p[i].y, p[i].z).color(1f, 0f, 1f, 1f).next();
-            }
-        }
-        if (consumers instanceof VertexConsumerProvider.Immediate imm) {
-            imm.draw();
-        }
-        ms.pop();
     }
 }
