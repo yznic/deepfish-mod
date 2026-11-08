@@ -63,9 +63,9 @@ public class DeepfishClient implements ClientModInitializer {
             for (QuadData.Quad q : data.quads) {
                 Vector3f n = new Vector3f(q.n[0], q.n[1], q.n[2]).mul(nm).normalize();
                 for (int i = 0; i < 4; i++) {
-                    Vector3f pos = new Vector3f(q.p[i][0], q.p[i][1], q.p[i][2]);
-                    mat.transformPosition(pos);
-                    vc.vertex(pos.x(), pos.y(), pos.z(), 1f, 1f, 1f, 1f,
+                    Vector3f vp = new Vector3f(q.p[i][0], q.p[i][1], q.p[i][2]);
+                    mat.transformPosition(vp);
+                    vc.vertex(vp.x(), vp.y(), vp.z(), 1f, 1f, 1f, 1f,
                             q.uv[i][0], q.uv[i][1], OverlayTexture.DEFAULT_UV, 0xF000F0,
                             n.x(), n.y(), n.z());
                 }
