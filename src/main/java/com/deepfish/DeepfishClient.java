@@ -8,6 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -64,7 +65,8 @@ public class DeepfishClient implements ClientModInitializer {
             ms.scale(1f / 16f, 1f / 16f, 1f / 16f);
             Matrix4f mat = ms.peek().getPositionMatrix();
             Matrix3f nm = new Matrix3f(ms.peek().getNormalMatrix());
-            VertexConsumer vc = ctx.consumers().getBuffer(RenderLayer.getEntityCutoutNoCull(TEX));
+            VertexConsumerProvider consumers = ctx.consumers();
+            VertexConsumer vc = consumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEX));
             for (QuadData.Quad q : data.quads) {
                 Vector3f n = new Vector3f(q.n[0], q.n[1], q.n[2]).mul(nm).normalize();
                 for (int i = 0; i < 4; i++) {
@@ -76,6 +78,9 @@ public class DeepfishClient implements ClientModInitializer {
                 }
             }
             ms.pop();
+            if (consumers instanceof VertexConsumerProvider.Immediate imm) {
+                imm.draw();
+            }
         }
     }
 }
