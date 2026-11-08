@@ -9,10 +9,14 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
@@ -61,6 +65,7 @@ public class DeepfishClient implements ClientModInitializer {
             Vec3d cam = ctx.camera().getPos();
             ms.push();
             ms.translate(pos.x - cam.x, pos.y - cam.y, pos.z - cam.z);
+            ms.translate(0f, -2.855f / 16f, 0f);
             ms.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180f - yaw));
             ms.scale(1f / 16f, 1f / 16f, 1f / 16f);
             Matrix4f mat = ms.peek().getPositionMatrix();
@@ -76,6 +81,18 @@ public class DeepfishClient implements ClientModInitializer {
                             q.uv[i][0], q.uv[i][1], OverlayTexture.DEFAULT_UV, 0xF000F0,
                             n.x(), n.y(), n.z());
                 }
+            }
+            ItemStack held = p.getMainHandStack();
+            if (!held.isEmpty()) {
+                ms.push();
+                ms.translate(-4.2f, 7.5f, 0f);
+                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
+                ms.scale(16f, 16f, 16f);
+                ItemRenderer ir = mc.getItemRenderer();
+                BakedModel model = ir.getModel(held, mc.world, p, p.getId());
+                ir.renderItem(held, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, false, ms, consumers,
+                        0xF000F0, OverlayTexture.DEFAULT_UV, model);
+                ms.pop();
             }
             ms.pop();
             if (consumers instanceof VertexConsumerProvider.Immediate imm) {
