@@ -85,9 +85,9 @@ public class DeepfishClient implements ClientModInitializer {
             ItemStack held = p.getMainHandStack();
             if (!held.isEmpty()) {
                 ms.push();
-                ms.translate(-4.2f, 7.5f, 0f);
+                ms.translate(-5.5f, 9.0f, -1.0f);
                 ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
-                ms.scale(16f, 16f, 16f);
+                ms.scale(14f, 14f, 14f);
                 ItemRenderer ir = mc.getItemRenderer();
                 BakedModel model = ir.getModel(held, mc.world, p, p.getId());
                 ir.renderItem(held, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, false, ms, consumers,
