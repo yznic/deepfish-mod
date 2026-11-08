@@ -25,12 +25,17 @@ public class DeepfishClient implements ClientModInitializer {
     public static final Identifier TEX = new Identifier("deepfish", "textures/model.png");
     public static final Identifier QUADS = new Identifier("deepfish", "quads.json");
     private static QuadData data;
+    private static boolean triedLoad = false;
 
     @Override
     public void onInitializeClient() {
         WorldRenderEvents.AFTER_ENTITIES.register(DeepfishClient::render);
+    }
+
+    private static void ensureLoaded(MinecraftClient mc) {
+        if (data != null || triedLoad) return;
+        triedLoad = true;
         try {
-            MinecraftClient mc = MinecraftClient.getInstance();
             try (InputStream in = mc.getResourceManager().getResource(QUADS).orElseThrow().getInputStream()) {
                 data = new Gson().fromJson(new String(in.readAllBytes()), QuadData.class);
             }
@@ -44,9 +49,9 @@ public class DeepfishClient implements ClientModInitializer {
     }
 
     private static void render(WorldRenderContext ctx) {
-        if (data == null) return;
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.world == null) return;
+        ensureLoaded(mc);
+        if (data == null || mc.world == null) return;
         for (PlayerEntity p : mc.world.getPlayers()) {
             if (!p.getName().getString().equals("deepdeep")) continue;
             Vec3d pos = p.getLerpedPos(ctx.tickDelta());
