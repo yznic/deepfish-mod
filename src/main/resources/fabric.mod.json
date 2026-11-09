@@ -8,6 +8,7 @@
   "contact": {},
   "license": "MIT",
   "environment": "client",
+  "mixins": ["deepfish.mixins.json"],
   "entrypoints": {
     "client": ["com.deepfish.DeepfishClient"]
   },
