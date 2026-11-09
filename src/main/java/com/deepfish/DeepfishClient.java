@@ -86,7 +86,7 @@ public class DeepfishClient implements ClientModInitializer {
             ItemStack held = p.getMainHandStack();
             if (!held.isEmpty()) {
                 ms.push();
-                ms.translate(4.8f, 9.5f, -0.6f);
+                ms.translate(4.8f, 13.5f, -0.6f);
                 ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
                 ms.scale(12f, 12f, 12f);
                 BakedModel model = ir.getModel(held, mc.world, p, p.getId());
@@ -97,7 +97,7 @@ public class DeepfishClient implements ClientModInitializer {
             ItemStack off = p.getOffHandStack();
             if (!off.isEmpty()) {
                 ms.push();
-                ms.translate(-4.8f, 9.5f, -0.6f);
+                ms.translate(-4.8f, 13.5f, -0.6f);
                 ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
                 ms.scale(12f, 12f, 12f);
                 BakedModel model = ir.getModel(off, mc.world, p, p.getId());
