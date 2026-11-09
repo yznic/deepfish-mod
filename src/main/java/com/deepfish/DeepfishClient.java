@@ -87,7 +87,8 @@ public class DeepfishClient implements ClientModInitializer {
             if (!held.isEmpty()) {
                 ms.push();
                 ms.translate(5.2f, 11.0f, 0.5f);
-                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 60f));
+                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-35f - p.handSwingProgress * 60f));
+                ms.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20f));
                 ms.scale(12f, 12f, 12f);
                 BakedModel model = ir.getModel(held, mc.world, p, p.getId());
                 ir.renderItem(held, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, false, ms, consumers,
@@ -98,7 +99,8 @@ public class DeepfishClient implements ClientModInitializer {
             if (!off.isEmpty()) {
                 ms.push();
                 ms.translate(-5.2f, 11.0f, 0.5f);
-                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 60f));
+                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-35f - p.handSwingProgress * 60f));
+                ms.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(20f));
                 ms.scale(12f, 12f, 12f);
                 BakedModel model = ir.getModel(off, mc.world, p, p.getId());
                 ir.renderItem(off, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, true, ms, consumers,
