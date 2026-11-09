@@ -3,7 +3,8 @@
   "package": "com.deepfish.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "HeldItemMixin"
+    "HeldItemMixin",
+    "PlayerRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
