@@ -82,15 +82,26 @@ public class DeepfishClient implements ClientModInitializer {
                             n.x(), n.y(), n.z());
                 }
             }
+            ItemRenderer ir = mc.getItemRenderer();
             ItemStack held = p.getMainHandStack();
             if (!held.isEmpty()) {
                 ms.push();
                 ms.translate(-4.8f, 6.5f, -0.6f);
                 ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
                 ms.scale(12f, 12f, 12f);
-                ItemRenderer ir = mc.getItemRenderer();
                 BakedModel model = ir.getModel(held, mc.world, p, p.getId());
                 ir.renderItem(held, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, false, ms, consumers,
+                        0xF000F0, OverlayTexture.DEFAULT_UV, model);
+                ms.pop();
+            }
+            ItemStack off = p.getOffHandStack();
+            if (!off.isEmpty()) {
+                ms.push();
+                ms.translate(4.8f, 6.5f, -0.6f);
+                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 70f));
+                ms.scale(12f, 12f, 12f);
+                BakedModel model = ir.getModel(off, mc.world, p, p.getId());
+                ir.renderItem(off, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, true, ms, consumers,
                         0xF000F0, OverlayTexture.DEFAULT_UV, model);
                 ms.pop();
             }
