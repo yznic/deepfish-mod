@@ -100,7 +100,7 @@ public class DeepfishClient implements ClientModInitializer {
                 ms.push();
                 ms.translate(-4.8f, 16.0f, 0.4f);
                 ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-p.handSwingProgress * 60f));
-                ms.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90f));
+                ms.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-30f));
                 ms.scale(12f, 12f, 12f);
                 BakedModel model = ir.getModel(off, mc.world, p, p.getId());
                 ir.renderItem(off, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, true, ms, consumers,
